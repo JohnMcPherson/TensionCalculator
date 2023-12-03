@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.MutableStateFlow
 import nz.co.afleet.tensioncalculator.ui.theme.TensionCalculatorTheme
+import kotlin.math.pow
 import kotlin.math.round
 
 class MainActivity : ComponentActivity() {
@@ -55,8 +56,13 @@ class MainActivity : ComponentActivity() {
         val tKilograms = tNewtons * kgPerNewton
         val tPounds = tNewtons/4.44822
 
-        return round(tPounds * 10)/10
+        return tPounds.round(1)
 
+    }
+
+    private fun Double.round(decimals: Int): Double {
+        val multiplier = 10.0.pow(decimals.toDouble())
+        return round(this * multiplier) / multiplier
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
